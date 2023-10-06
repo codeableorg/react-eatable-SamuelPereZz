@@ -1,6 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@400;600&display=swap');
 
-.mobile-centered-container {
+body {
   font-family: 'Source Sans 3', sans-serif;
+  background-color: #d3d3d4;
+
 }
 

@@ -1,5 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { getProducts } from "../services/product-services";
+import CardFood from "../components/CardsFood";
+import styled from "@emotion/styled";
+import ButtonComponent from "../components/Button";
+
+const CardContainer = styled.div`
+  padding: 15px;
+  display: grid;
+  grid-template-columns: repeat(2, 0.1fr);
+  gap: 1rem;
+  row-gap: 3rem;
+  justify-items: center;
+  justify-content: center;
+`;
+const Header = styled.header`
+  display: flex;
+  justify-content: center;
+  margin-bottom: 15px;
+  padding: 15px;
+`;
+
+const Footer = styled.footer`
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background-color: #d3d3d4;
+  display: flex;
+  justify-content: center;
+  padding: 15px;
+`;
 
 function ProductList() {
   const [products, setProducts] = useState([]);
@@ -10,24 +39,30 @@ function ProductList() {
         setProducts(data);
       })
       .catch((error) => {
-        console.error("Error al obtener productos:", error);
+        console.error(error);
       });
   }, []);
 
   return (
     <div>
-      <h1>Lista de Productos</h1>
-      <ul>
+      <Header>
+        <h2>Products Dashboard</h2>
+      </Header>
+      <CardContainer>
         {products.map((product) => (
-          <li key={product.id}>
-            <img src={product.picture_url} alt={product.name} />
-            <h2>{product.name}</h2>
-            <p>Precio: ${product.price}</p>
-            {/* <p>Categoría: {product.category}</p>
-            <p>Descripción: {product.description}</p> */}
-          </li>
+          <CardFood
+            key={product.id}
+            id={product.id}
+            name={product.name}
+            price={product.price}
+            src={product.picture_url}
+          />
         ))}
-      </ul>
+              <Footer>
+        <ButtonComponent text="Create Product" />
+      </Footer>
+      </CardContainer>
+
     </div>
   );
 }

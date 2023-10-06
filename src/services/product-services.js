@@ -9,11 +9,29 @@ export function getProducts() {
       return response.json();
     })
     .then((data) => {
-      console.log(data); 
+      console.log(data);
       return data;
     })
     .catch((error) => {
-      console.error("Error al obtener productos:", error);
+      console.error(error);
+      throw error;
+    });
+}
+
+export function createProduct(productData) {
+  return apiFetch("/products", { body: productData })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Error de red: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      return data;
+    })
+    .catch((error) => {
+      console.error(error);
       throw error;
     });
 }
