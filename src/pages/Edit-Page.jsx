@@ -1,7 +1,9 @@
-import React, { useState } from "react";
-import { createProduct } from "../services/product-services";
-import styled from "@emotion/styled";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { getProductById, updateProduct } from "../services/product-services";
+import Image from "../components/Image";
 import { ButtonGlobal } from "../components/Button";
+import styled from "@emotion/styled";
 import CommonInputStyles from "../styles/Inputs";
 
 const Container = styled.div`
@@ -34,9 +36,6 @@ const Input = styled.input`
     -webkit-appearance: none;
     margin: 0;
   }
-  &[id="description"] {
-    height: auto;
-  }
 `;
 
 const Label = styled.label`
@@ -48,80 +47,90 @@ const Label = styled.label`
   }
 `;
 
-function ProductForm() {
-  const [productData, setProductData] = useState({
-    name: "",
-    price: "",
-    category: "",
-    description: "",
-    picture_url: "",
-  });
+function EditPage() {
+  const { id } = useParams();
+  const [product, setProduct] = useState(null);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProductData({ ...productData, [name]: value });
+  useEffect(() => {
+    getProductById(id)
+      .then((data) => {
+        setProduct(data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  }, [id]);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setProduct({ ...product, [name]: value });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    console.log(productData);
+  const handleUpdate = async () => {
     try {
-      const response = await createProduct(productData);
+      await updateProduct(id, product);
+      alert("Product updated successfully");
     } catch (error) {
       console.error(error);
+      alert("Error updating the product");
     }
   };
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <Container>
       <Header>
-        <h1>Create Product</h1>
+        <h1>Edit Product</h1>
       </Header>
-      <Form onSubmit={handleSubmit}>
+      <Image size={"sm"} src={product.picture_url} />
+      <Form onSubmit={handleUpdate}>
         <Label htmlFor="name">Name</Label>
         <Input
           type="text"
           name="name"
           id="name"
-          value={productData.name}
-          onChange={handleChange}
+          value={product.name}
+          onChange={handleInputChange}
         />
         <Label htmlFor="price">Price</Label>
         <Input
           type="number"
           name="price"
           id="price"
-          value={productData.price}
-          onChange={handleChange}
+          value={product.price}
+          onChange={handleInputChange}
         />
         <Label htmlFor="description">Description</Label>
         <Input
           type="text"
           name="description"
           id="description"
-          value={productData.description}
-          onChange={handleChange}
+          value={product.description}
+          onChange={handleInputChange}
         />
         <Label htmlFor="category">Category</Label>
         <Input
           type="text"
           name="category"
           id="category"
-          value={productData.category}
-          onChange={handleChange}
+          value={product.category}
+          onChange={handleInputChange}
         />
         <Label htmlFor="picture_url">Picture URL</Label>
         <Input
           type="text"
           name="picture_url"
           id="picture_url"
-          value={productData.picture_url}
-          onChange={handleChange}
+          value={product.picture_url}
+          onChange={handleInputChange}
         />
-        <ButtonGlobal type="submit" text="Create" />
+        <ButtonGlobal type="submit" text="Save" />
       </Form>
     </Container>
   );
 }
 
-export default ProductForm;
+export default EditPage;

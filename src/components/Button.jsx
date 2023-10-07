@@ -1,6 +1,7 @@
 import styled from "@emotion/styled";
 
 const Button = styled.button`
+margin-top: 1rem;
   color: white;
   width: 300px;
   height: 70px;

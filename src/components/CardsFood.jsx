@@ -65,9 +65,12 @@ const CardFood = ({ id, name, price, src }) => {
         <FoodName color={"#FA4A0C"}>${price}</FoodName>
       </Link>
       <ButtonContainer>
+      <Link to={`/products/edit-product/${id}`}>
         <ButtonCard>
           <img src={Edit} alt="editButton" />
         </ButtonCard>
+      </Link>
+
         <ButtonCard>
           <img src={Delete} alt="editButton" />
         </ButtonCard>
