@@ -1,5 +1,4 @@
 import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
 
 const Button = styled.button`
   color: white;
@@ -17,11 +16,9 @@ const Button = styled.button`
   }
 `;
 
-export function ButtonCreateProduct(prop) {
+export function ButtonGlobal(prop) {
   return (
-    <Link to="/create-product"> 
       <Button>{prop.text}</Button>
-    </Link>
   );
 }
 

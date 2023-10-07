@@ -5,11 +5,12 @@ import Delete from "../assets/delete.svg";
 
 const ContainerCard = styled.div`
   width: 160px;
-  height: 218px;
+  height: 205px;
   border-radius: 35px;
   background-color: white;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   align-items: center;
   transition: all 0.5s;
   &:hover {

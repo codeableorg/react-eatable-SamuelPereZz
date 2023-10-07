@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { createProduct } from "../services/product-services";
 import styled from "@emotion/styled";
+import { ButtonGlobal } from "../components/Button";
 
 const Container = styled.div`
   display: flex;
@@ -50,23 +51,6 @@ const Label = styled.label`
   font-weight: 500;
   &:hover {
     color: #4c4c4c;
-  }
-`;
-
-const Button = styled.button`
-  color: white;
-  width: 310px;
-  height: 70px;
-  border-radius: 50px;
-  background: var(--orange, #fa4a0c);
-  border: none;
-  cursor: pointer;
-  font-size: 20px;
-  text-align: center;
-  margin-top: 50px;
-  &:hover {
-    transform: scale(1.05);
-    background: var(--orange, #fd6832);
   }
 `;
 
@@ -140,7 +124,7 @@ function ProductForm() {
           value={productData.picture_url}
           onChange={handleChange}
         />
-        <Button type="submit">Create</Button>
+        <ButtonGlobal type="submit" text="Create" />
       </Form>
     </Container>
   );
