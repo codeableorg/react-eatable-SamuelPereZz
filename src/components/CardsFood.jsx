@@ -2,14 +2,17 @@ import styled from "@emotion/styled";
 import Image from "./Image";
 import Edit from "../assets/edit.svg";
 import Delete from "../assets/delete.svg";
+import { Link } from "react-router-dom";
 
 const ContainerCard = styled.div`
   width: 160px;
-  height: 205px;
-  border-radius: 35px;
+  height: 210px;
+  border-radius: 30px;
+  box-shadow: 0px 30px 60px 0px rgba(57, 57, 57, 0.114);
   background-color: white;
   display: flex;
   flex-direction: column;
+  justify-self: center;
   justify-content: center;
   align-items: center;
   transition: all 0.5s;
@@ -51,14 +54,16 @@ const ButtonContainer = styled.div`
   top: -2.5rem;
 `;
 
-const CardFood = ({ id, name, price, src, handleProduct }) => {
+const CardFood = ({ id, name, price, src }) => {
   return (
-    <ContainerCard onClick={() => handleProduct(id)}>
-      <ImageContainer>
-        <Image size={"sm"} src={src} />
-      </ImageContainer>
-      <FoodName>{name}</FoodName>
-      <FoodName color={"#FA4A0C"}>${price}</FoodName>
+    <ContainerCard>
+      <Link to={`/products/${id}`}>
+        <ImageContainer>
+          <Image size={"sm"} src={src} />
+        </ImageContainer>
+        <FoodName>{name}</FoodName>
+        <FoodName color={"#FA4A0C"}>${price}</FoodName>
+      </Link>
       <ButtonContainer>
         <ButtonCard>
           <img src={Edit} alt="editButton" />

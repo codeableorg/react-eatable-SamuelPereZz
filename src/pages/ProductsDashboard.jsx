@@ -22,15 +22,15 @@ const Header = styled.header`
   margin-bottom: 3rem;
 `;
 
-const Footer = styled.footer`
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  justify-content: center;
-  padding: 10px 0px;
-  bottom: 0;
+const Footer = styled.div`
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-items: center;
+  padding: 15px 0px;
+  bottom: 0;
+  position: fixed;
 `;
 
 function ProductList() {

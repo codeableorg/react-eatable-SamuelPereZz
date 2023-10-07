@@ -8,9 +8,6 @@ const Container = styled.div`
   flex-direction: column;
   justify-items: center;
   justify-content: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   gap: 16px;
 `;
 

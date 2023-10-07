@@ -1,6 +1,5 @@
 const BASE_URI = "https://react-eatable-api.herokuapp.com";
 
-
 export async function createProduct(productData) {
   try {
     const response = await fetch(`${BASE_URI}/products`, {
@@ -10,11 +9,9 @@ export async function createProduct(productData) {
       },
       body: JSON.stringify(productData),
     });
-
     if (!response.ok) {
       throw new Error(`Error al crear el producto: ${response.status}`);
     }
-
     const data = await response.json();
     return data;
   } catch (error) {
@@ -22,8 +19,6 @@ export async function createProduct(productData) {
     throw error;
   }
 }
-
-
 
 export async function getProducts() {
   try {
@@ -40,4 +35,16 @@ export async function getProducts() {
   }
 }
 
-
+export async function getProductById(id) {
+  try {
+    const response = await fetch(`${BASE_URI}/products/${id}`);
+    if (!response.ok) {
+      throw new Error(`Error de red: ${response.status}`);
+    }
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}

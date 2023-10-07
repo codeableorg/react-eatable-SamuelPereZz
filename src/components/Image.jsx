@@ -18,7 +18,6 @@ const Img = styled.img`
   border-radius: 100%;
   width: 100%;
   height: 100%;
-
 `;
 
 const Image = ({ src, size }) => {
