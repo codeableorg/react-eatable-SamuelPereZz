@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const Button = styled.button`
   color: white;
-  width: 310px;
+  width: 300px;
   height: 70px;
   border-radius: 50px;
   background: var(--orange, #fa4a0c);
@@ -13,11 +13,11 @@ const Button = styled.button`
   text-align: center;
   &:hover {
     transform: scale(1.05);
-    background: var(--orange, #fd6832);
+    background: #fd6832;
   }
 `;
 
-function ButtonComponent(prop) {
+export function ButtonCreateProduct(prop) {
   return (
     <Link to="/create-product"> 
       <Button>{prop.text}</Button>
@@ -25,4 +25,5 @@ function ButtonComponent(prop) {
   );
 }
 
-export default ButtonComponent;
+
+

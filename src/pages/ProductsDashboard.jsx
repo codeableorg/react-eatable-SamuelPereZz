@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { getProducts } from "../services/product-services";
 import CardFood from "../components/CardsFood";
 import styled from "@emotion/styled";
-import ButtonComponent from "../components/Button";
+import { ButtonCreateProduct } from "../components/Button";
 
 const CardContainer = styled.div`
   padding: 15px;
@@ -12,7 +12,9 @@ const CardContainer = styled.div`
   row-gap: 3rem;
   justify-items: center;
   justify-content: center;
+  padding-bottom: 7rem;
 `;
+
 const Header = styled.header`
   display: flex;
   justify-content: center;
@@ -22,12 +24,13 @@ const Header = styled.header`
 
 const Footer = styled.footer`
   position: fixed;
-  bottom: 0;
-  width: 100%;
-  background-color: #d3d3d4;
   display: flex;
   justify-content: center;
-  padding: 15px;
+  align-items: center;
+  justify-content: center;
+  padding: 10px 0px;
+  bottom: 0;
+  width: 100%;
 `;
 
 function ProductList() {
@@ -58,11 +61,10 @@ function ProductList() {
             src={product.picture_url}
           />
         ))}
-              <Footer>
-        <ButtonComponent text="Create Product" />
-      </Footer>
       </CardContainer>
-
+      <Footer>
+        <ButtonCreateProduct text="Create Product" />
+      </Footer>
     </div>
   );
 }

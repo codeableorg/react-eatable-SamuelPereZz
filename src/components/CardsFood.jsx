@@ -25,23 +25,19 @@ const FoodName = styled.p`
   color: ${({ color }) => color};
   position: relative;
   margin-top: 0px;
-  top: -2rem;
+  top: -2.3rem;
 `;
 
 const ImageContainer = styled.div`
-  padding: 5px;
   position: relative;
-  top: -2rem;
+  top: -2.5rem;
 `;
 
 const ButtonCard = styled.button`
   background: none;
   border: none;
   padding: 0;
-  width: auto;
-  height: auto;
   cursor: pointer;
-  top:-5;
   &:hover {
     transform: scale(1.5);
   }
@@ -50,9 +46,8 @@ const ButtonCard = styled.button`
 const ButtonContainer = styled.div`
   display: flex;
   column-gap: 4rem;
-  position:relative;
+  position: relative;
   top: -2.5rem;
-
 `;
 
 const CardFood = ({ id, name, price, src, handleProduct }) => {
@@ -62,8 +57,7 @@ const CardFood = ({ id, name, price, src, handleProduct }) => {
         <Image size={"sm"} src={src} />
       </ImageContainer>
       <FoodName>{name}</FoodName>
-      <FoodName color={"#FA4A0C"}>${price}
-      </FoodName>
+      <FoodName color={"#FA4A0C"}>${price}</FoodName>
       <ButtonContainer>
         <ButtonCard>
           <img src={Edit} alt="editButton" />
