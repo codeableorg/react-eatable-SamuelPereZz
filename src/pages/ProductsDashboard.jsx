@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { getProducts } from "../services/product-services";
+import { getProducts, deleteProduct } from "../services/product-services";
 import CardFood from "../components/CardsFood";
 import styled from "@emotion/styled";
 import { ButtonGlobal } from "../components/Button";
 import { Link } from "react-router-dom";
+import ConfirmationModal from "../components/DeleteMessage";
 
 const CardContainer = styled.div`
   padding: 15px;
@@ -35,16 +36,31 @@ const Footer = styled.div`
 
 function ProductList() {
   const [products, setProducts] = useState([]);
+  const [productIdToDelete, setProductIdToDelete] = useState(null);
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
 
   useEffect(() => {
-    getProducts()
-      .then((data) => {
-        setProducts(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    fetchProducts();
   }, []);
+
+  const fetchProducts = async () => {
+    try {
+      const data = await getProducts();
+      setProducts(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleDelete = async () => {
+    try {
+      await deleteProduct(productIdToDelete);
+      setDeleteModalOpen(false);
+      fetchProducts();
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div>
@@ -62,6 +78,10 @@ function ProductList() {
               minimumFractionDigits: 2,
             })}
             src={product.picture_url}
+            onDelete={() => {
+              setProductIdToDelete(product.id);
+              setDeleteModalOpen(true);
+            }}
           />
         ))}
       </CardContainer>
@@ -70,6 +90,13 @@ function ProductList() {
           <ButtonGlobal text="Create Product" />
         </Link>
       </Footer>
+      {deleteModalOpen && (
+        <ConfirmationModal
+          message="Are you sure?"
+          onConfirm={handleDelete}
+          onCancel={() => setDeleteModalOpen(false)}
+        />
+      )}
     </div>
   );
 }

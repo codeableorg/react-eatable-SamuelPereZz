@@ -10,7 +10,7 @@ export async function createProduct(productData) {
       body: JSON.stringify(productData),
     });
     if (!response.ok) {
-      throw new Error(`Error al crear el producto: ${response.status}`);
+      throw new Error(response.status);
     }
     const data = await response.json();
     return data;
@@ -24,7 +24,7 @@ export async function getProducts() {
   try {
     const response = await fetch(`${BASE_URI}/products`);
     if (!response.ok) {
-      throw new Error(`Error de red: ${response.status}`);
+      throw new Error(response.status);
     }
     const data = await response.json();
     return data;
@@ -38,7 +38,7 @@ export async function getProductById(id) {
   try {
     const response = await fetch(`${BASE_URI}/products/${id}`);
     if (!response.ok) {
-      throw new Error(`Error de red: ${response.status}`);
+      throw new Error(response.status);
     }
     const data = await response.json();
     return data;
@@ -56,10 +56,25 @@ export async function updateProduct(id, updatedProductData) {
       body: JSON.stringify(updatedProductData),
     });
     if (!response.ok) {
-      throw new Error(`Error de red: ${response.status}`);
+      throw new Error(response.status);
     }
     const data = await response.json();
     return data;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+}
+
+export async function deleteProduct(id) {
+  try {
+    const response = await fetch(`${BASE_URI}/products/${id}`, {
+      method: "DELETE",
+    });
+    if (!response.ok) {
+      throw new Error(response.status);
+    }
+    return true;
   } catch (error) {
     console.error(error);
     throw error;

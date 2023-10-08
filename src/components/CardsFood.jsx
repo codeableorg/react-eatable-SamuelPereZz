@@ -1,3 +1,4 @@
+import React from "react";
 import styled from "@emotion/styled";
 import Image from "./Image";
 import Edit from "../assets/edit.svg";
@@ -54,7 +55,7 @@ const ButtonContainer = styled.div`
   top: -2.5rem;
 `;
 
-const CardFood = ({ id, name, price, src }) => {
+const CardFood = ({ id, name, price, src, onDelete }) => {
   return (
     <ContainerCard>
       <Link to={`/products/${id}`}>
@@ -65,14 +66,14 @@ const CardFood = ({ id, name, price, src }) => {
         <FoodName color={"#FA4A0C"}>${price}</FoodName>
       </Link>
       <ButtonContainer>
-      <Link to={`/products/edit-product/${id}`}>
-        <ButtonCard>
-          <img src={Edit} alt="editButton" />
-        </ButtonCard>
-      </Link>
+        <Link to={`/products/edit-product/${id}`}>
+          <ButtonCard>
+            <img src={Edit} alt="editButton" />
+          </ButtonCard>
+        </Link>
 
-        <ButtonCard>
-          <img src={Delete} alt="editButton" />
+        <ButtonCard onClick={onDelete}> 
+          <img src={Delete} alt="deleteButton" />
         </ButtonCard>
       </ButtonContainer>
     </ContainerCard>
