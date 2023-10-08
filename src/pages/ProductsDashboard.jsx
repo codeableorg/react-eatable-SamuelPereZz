@@ -57,7 +57,10 @@ function ProductList() {
             key={product.id}
             id={product.id}
             name={product.name}
-            price={product.price}
+            price={parseFloat(product.price).toLocaleString("en-US", {
+              currency: "USD",
+              minimumFractionDigits: 2,
+            })}
             src={product.picture_url}
           />
         ))}

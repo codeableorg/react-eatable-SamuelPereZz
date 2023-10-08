@@ -9,13 +9,10 @@ import CommonInputStyles from "../styles/Inputs";
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
 `;
 
 const Header = styled.header`
-  display: block;
-  justify-content: center;
   text-align: center;
 `;
 
@@ -24,8 +21,6 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   text-align: start;
-  justify-items: center;
-  justify-content: center;
   padding: 20px;
 `;
 
@@ -52,13 +47,16 @@ function EditPage() {
   const [product, setProduct] = useState(null);
 
   useEffect(() => {
-    getProductById(id)
-      .then((data) => {
+    async function fetchProduct() {
+      try {
+        const data = await getProductById(id);
         setProduct(data);
-      })
-      .catch((error) => {
+      } catch (error) {
         console.error(error);
-      });
+      }
+    }
+
+    fetchProduct();
   }, [id]);
 
   const handleInputChange = (event) => {
@@ -66,7 +64,9 @@ function EditPage() {
     setProduct({ ...product, [name]: value });
   };
 
-  const handleUpdate = async () => {
+  const handleUpdate = async (event) => {
+    event.preventDefault();
+
     try {
       await updateProduct(id, product);
       alert("Product updated successfully");
@@ -85,7 +85,7 @@ function EditPage() {
       <Header>
         <h1>Edit Product</h1>
       </Header>
-      <Image size={"sm"} src={product.picture_url} />
+      <Image size="sm" src={product.picture_url} />
       <Form onSubmit={handleUpdate}>
         <Label htmlFor="name">Name</Label>
         <Input
