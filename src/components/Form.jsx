@@ -2,6 +2,9 @@ import React from "react";
 import styled from "@emotion/styled";
 import { ButtonGlobal } from "../components/Button";
 import CommonInputStyles from "../styles/Inputs";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+import { createProduct } from "../services/product-services";
 
 const Container = styled.div`
   display: flex;
@@ -45,7 +48,41 @@ const Label = styled.label`
   }
 `;
 
-function FormPresentation({ productData, handleChange, handleSubmit }) {
+function FormPresentation() {
+  const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
+    initialValues: {
+      name: "",
+      price: "",
+      category: "",
+      description: "",
+      picture_url: "",
+    },
+    validationSchema: Yup.object().shape({
+      name: Yup.string().required("Name is required"),
+      price: Yup.number()
+        .typeError("Price must be a number")
+        .positive("Price must be positive")
+        .required("Price is required"),
+      description: Yup.string().required("Description is required"),
+      category: Yup.string().required("Category is required"),
+      picture_url: Yup.string()
+        .url("Invalid URL format")
+        .required("Picture URL is required"),
+    }),
+    onSubmit: async (values, { resetForm }) => {
+      try {
+        await createProduct(values);
+        resetForm();
+        alert("Product added successfully!");
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  });
+
+  // Estilo para los mensajes de error
+  const errorStyle = { color: "red" };
+
   return (
     <Container>
       <Header>
@@ -57,41 +94,56 @@ function FormPresentation({ productData, handleChange, handleSubmit }) {
           type="text"
           name="name"
           id="name"
-          value={productData.name}
+          value={values.name}
           onChange={handleChange}
+          onBlur={handleBlur}
         />
+        {touched.name && errors.name && <div style={errorStyle}>{errors.name}</div>}
+
         <Label htmlFor="price">Price</Label>
         <Input
           type="number"
           name="price"
           id="price"
-          value={productData.price}
+          value={values.price}
           onChange={handleChange}
+          onBlur={handleBlur}
         />
+        {touched.price && errors.price && <div style={errorStyle}>{errors.price}</div>}
+
         <Label htmlFor="description">Description</Label>
         <Input
           type="text"
           name="description"
           id="description"
-          value={productData.description}
+          value={values.description}
           onChange={handleChange}
+          onBlur={handleBlur}
         />
+        {touched.description && errors.description && <div style={errorStyle}>{errors.description}</div>}
+
         <Label htmlFor="category">Category</Label>
         <Input
           type="text"
           name="category"
           id="category"
-          value={productData.category}
+          value={values.category}
           onChange={handleChange}
+          onBlur={handleBlur}
         />
+        {touched.category && errors.category && <div style={errorStyle}>{errors.category}</div>}
+
         <Label htmlFor="picture_url">Picture URL</Label>
         <Input
           type="text"
           name="picture_url"
           id="picture_url"
-          value={productData.picture_url}
+          value={values.picture_url}
           onChange={handleChange}
+          onBlur={handleBlur}
         />
+        {touched.picture_url && errors.picture_url && <div style={errorStyle}>{errors.picture_url}</div>}
+
         <ButtonGlobal type="submit" text="Create" />
       </Form>
     </Container>
@@ -99,6 +151,3 @@ function FormPresentation({ productData, handleChange, handleSubmit }) {
 }
 
 export default FormPresentation;
-
-
-
