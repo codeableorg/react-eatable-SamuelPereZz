@@ -20,6 +20,7 @@ function CreateProduct() {
     e.preventDefault();
     try {
       const response = await createProduct(productData);
+      alert("Product added successfully!");
     } catch (error) {
       console.error(error);
     }

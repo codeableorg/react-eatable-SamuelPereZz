@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
-import { getProducts, deleteProduct } from "../services/product-services";
 import CardFood from "../components/CardsFood";
 import styled from "@emotion/styled";
 import { ButtonGlobal } from "../components/Button";
 import { Link } from "react-router-dom";
 import ConfirmationModal from "../components/DeleteMessage";
+import { deleteProduct, getProducts } from "../services/product-services";
 
 const CardContainer = styled.div`
   padding: 15px;

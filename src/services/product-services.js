@@ -13,6 +13,7 @@ export async function createProduct(productData) {
       throw new Error(response.status);
     }
     const data = await response.json();
+    updateLocalStorage();
     return data;
   } catch (error) {
     console.error(error);
@@ -22,11 +23,17 @@ export async function createProduct(productData) {
 
 export async function getProducts() {
   try {
+    const localData = localStorage.getItem("products");
+    if (localData) {
+      const parsedData = JSON.parse(localData);
+      return parsedData;
+    }
     const response = await fetch(`${BASE_URI}/products`);
     if (!response.ok) {
       throw new Error(response.status);
     }
     const data = await response.json();
+    localStorage.setItem("products", JSON.stringify(data));
     return data;
   } catch (error) {
     console.error(error);
@@ -59,6 +66,7 @@ export async function updateProduct(id, updatedProductData) {
       throw new Error(response.status);
     }
     const data = await response.json();
+    updateLocalStorage();
     return data;
   } catch (error) {
     console.error(error);
@@ -74,9 +82,13 @@ export async function deleteProduct(id) {
     if (!response.ok) {
       throw new Error(response.status);
     }
+    updateLocalStorage();
     return true;
   } catch (error) {
     console.error(error);
     throw error;
   }
+}
+function updateLocalStorage() {
+  localStorage.removeItem("products");
 }
