@@ -4,6 +4,7 @@ import { getProductById } from "../services/product-services";
 import styled from "@emotion/styled";
 import Image from "../components/Image";
 import { ButtonGlobal } from "../components/Button";
+import NotProduct from "./Not-Products";
 
 const Container = styled.div`
   display: flex;
@@ -44,24 +45,26 @@ function DishData() {
       });
   }, [id]);
 
-  if (!product) {
-    return <div>Cargando...</div>;
-  }
-
   return (
     <Container>
-      <Image size={"md"} src={product.picture_url} />
-      <FoodData color={"#000000"}>{product.name}</FoodData>
-      <FoodData color={"#FA4A0C"}>${product.price}</FoodData>
-      <ContainerInfo>
-        <h3>Description</h3>
-        <Info>{product.description}</Info>
-        <h3>Category</h3>
-        <Info>{product.category}</Info>
-      </ContainerInfo>
-      <Link to="/">
-        <ButtonGlobal text="Go Back" />
-      </Link>
+      {product ? (
+        <>
+          <Image size={"md"} src={product.picture_url} />
+          <FoodData color={"#000000"}>{product.name}</FoodData>
+          <FoodData color={"#FA4A0C"}>${product.price}</FoodData>
+          <ContainerInfo>
+            <h3>Description</h3>
+            <Info>{product.description}</Info>
+            <h3>Category</h3>
+            <Info>{product.category}</Info>
+          </ContainerInfo>
+          <Link to="/">
+            <ButtonGlobal text="Go Back" />
+          </Link>
+        </>
+      ) : (
+        <NotProduct /> 
+      )}
     </Container>
   );
 }

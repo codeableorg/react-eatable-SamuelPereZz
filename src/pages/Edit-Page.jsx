@@ -5,6 +5,7 @@ import Image from "../components/Image";
 import { ButtonGlobal } from "../components/Button";
 import styled from "@emotion/styled";
 import CommonInputStyles from "../styles/Inputs";
+import NotProduct from "./Not-Products";
 
 const Container = styled.div`
   display: flex;
@@ -82,53 +83,59 @@ function EditPage() {
 
   return (
     <Container>
-      <Header>
-        <h1>Edit Product</h1>
-      </Header>
-      <Image size="sm" src={product.picture_url} />
-      <Form onSubmit={handleUpdate}>
-        <Label htmlFor="name">Name</Label>
-        <Input
-          type="text"
-          name="name"
-          id="name"
-          value={product.name}
-          onChange={handleInputChange}
-        />
-        <Label htmlFor="price">Price</Label>
-        <Input
-          type="number"
-          name="price"
-          id="price"
-          value={product.price}
-          onChange={handleInputChange}
-        />
-        <Label htmlFor="description">Description</Label>
-        <Input
-          type="text"
-          name="description"
-          id="description"
-          value={product.description}
-          onChange={handleInputChange}
-        />
-        <Label htmlFor="category">Category</Label>
-        <Input
-          type="text"
-          name="category"
-          id="category"
-          value={product.category}
-          onChange={handleInputChange}
-        />
-        <Label htmlFor="picture_url">Picture URL</Label>
-        <Input
-          type="text"
-          name="picture_url"
-          id="picture_url"
-          value={product.picture_url}
-          onChange={handleInputChange}
-        />
-        <ButtonGlobal type="submit" text="Save" />
-      </Form>
+      {product ? (
+        <>
+          <Header>
+            <h1>Edit Product</h1>
+          </Header>
+          <Image size="sm" src={product.picture_url} />
+          <Form onSubmit={handleUpdate}>
+            <Label htmlFor="name">Name</Label>
+            <Input
+              type="text"
+              name="name"
+              id="name"
+              value={product.name}
+              onChange={handleInputChange}
+            />
+            <Label htmlFor="price">Price</Label>
+            <Input
+              type="number"
+              name="price"
+              id="price"
+              value={product.price}
+              onChange={handleInputChange}
+            />
+            <Label htmlFor="description">Description</Label>
+            <Input
+              type="text"
+              name="description"
+              id="description"
+              value={product.description}
+              onChange={handleInputChange}
+            />
+            <Label htmlFor="category">Category</Label>
+            <Input
+              type="text"
+              name="category"
+              id="category"
+              value={product.category}
+              onChange={handleInputChange}
+            />
+            <Label htmlFor="picture_url">Picture URL</Label>
+            <Input
+              type="text"
+              name="picture_url"
+              id="picture_url"
+              value={product.picture_url}
+              onChange={handleInputChange}
+            />
+            <ButtonGlobal type="submit" text="Save" />
+          </Form>
+        </>
+      ) : (
+        <NotProduct />
+      )}
     </Container>
   );
 }
