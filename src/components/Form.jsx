@@ -48,7 +48,7 @@ const Label = styled.label`
   }
 `;
 
-function FormPresentation() {
+function FormPresentation(prop) {
   const { values, errors, touched, handleChange, handleBlur, handleSubmit } = useFormik({
     initialValues: {
       name: "",
